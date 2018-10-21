@@ -2,5 +2,7 @@
 __author__ = 'Administrator'
 from application import app
 from web.controllers.index import route_index
+from web.controllers.user.user import route_user
 
 app.register_blueprint(route_index,url_prefix = '/')
+app.register_blueprint(route_user,url_prefix='/user')
