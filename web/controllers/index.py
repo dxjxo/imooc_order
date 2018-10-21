@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 __author__ = 'Administrator'
-from flask import  Blueprint
+from flask import  Blueprint,render_template
 
 route_index  = Blueprint('index_page',__name__)
 @route_index.route('/')
 def index():
-    return '搭建好了整个项目框架'
+    return render_template('index/index.html')
