@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
 __author__ = 'Administrator'
-from flask import Blueprint
+from flask import Blueprint,render_template
 
 route_user = Blueprint('user_page',__name__)
 
 @route_user.route('/login')
 def login():
-    return 'login'
+    return render_template('user/login.html')
