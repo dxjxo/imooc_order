@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 __author__ = 'Administrator'
 from application import app
-from flask import request,redirect
+from flask import request,redirect,g
 from common .models.user import User
 from common.libs.user.UserService import UserService
 from common.libs.UrlManager import UrlManager
@@ -23,9 +23,11 @@ def before_request():
     path = request.path
     if pattern.match(path):
         return
-
+    g.current_user = None
     user_info = check_login()
-
+    if user_info:
+        # 记录当前登陆的用户
+        g.current_user = user_info
     if not user_info:
         return  redirect(UrlManager.buildUrl('/user/login'))
     return
@@ -42,7 +44,7 @@ def check_login():
     if auth_cookie is None:
         return  False
     auth_info = auth_cookie.split('#')
-    print("...............",auth_info)
+
     if len(auth_info) != 2:  # cookie 形状 08c7f742cb1750f54b532d989bf3e069#1
         return False
 

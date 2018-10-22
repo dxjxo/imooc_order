@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 __author__ = 'Administrator'
-import hashlib,base64
+import hashlib,base64,string,random
 class UserService():
     """
     对cookie加密
@@ -20,3 +20,8 @@ class UserService():
         str = "%s-%s" %(base64.encodebytes(pwd.encode("utf-8")),salt)
         m.update( str.encode('utf-8') )
         return m.hexdigest()# 返回16进制
+
+    @staticmethod
+    def geneSalt(length=16):
+        keylist = [random.choice((string.ascii_letters + string.digits)) for i in range(length)]
+        return ("".join(keylist))

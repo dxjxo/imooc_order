@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 __author__ = 'Administrator'
-from flask import  Blueprint,render_template
-
+from flask import  Blueprint
+from common.libs.user.Helper import ops_render
 route_index  = Blueprint('index_page',__name__)
 @route_index.route('/')
 def index():
-    return render_template('index/index.html')
+    return ops_render('index/index.html')
