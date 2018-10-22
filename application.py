@@ -7,7 +7,7 @@ import os
 class Application(Flask):
     def __init__(self,import_name,template_folder=None,root_path=None):
         super(Application,self).__init__(import_name,template_folder=template_folder,root_path=root_path,static_folder=None)
-        self.config.from_pyfile('config/local_setting.py')
+        self.config.from_pyfile('config/base_setting.py')
         #定义一个‘ops_config’环境变量 ， 在linux命令行下 用 export ops_config = local , 那么下面的语句就是加载local_setting.py配置文件
         if 'ops_config' in os.environ:
             self.config.from_pyfile('config/%s_setting.py'%os.environ['ops_config'])

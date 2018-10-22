@@ -5,3 +5,4 @@ SQLALCHEMY_ECHO = True #将所有的sql语句打印出出来
 SQLALCHEMY_DATABASE_URI = 'mysql://root:root@127.0.0.1/food_db'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 SQLALCHEMY_ENCONDING = 'utf-8'
+AUTH_COOKIE_NAME= 'mooc_name'
