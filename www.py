@@ -1,6 +1,16 @@
 # -*- coding:utf-8 -*-
 __author__ = 'Administrator'
 from application import app
+
+"""
+统一拦截器
+"""
+from web.interceptor.AuthInterceptor import  *
+"""
+
+
+蓝图路由
+"""
 from web.controllers.index import route_index
 from web.controllers.user.User import route_user
 from web.controllers.account.Account import route_account
