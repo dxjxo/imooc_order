@@ -16,6 +16,7 @@ class Application(Flask):
 
 db = SQLAlchemy()
 app = Application(__name__,template_folder=os.getcwd()+'/web/templates/',root_path=os.getcwd())
+app.config['JSON_AS_ASCII'] = False  #是支持用jsonify返回json数据时   支持中文显示
 manager = Manager(app)
 
 '''
