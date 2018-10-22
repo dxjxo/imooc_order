@@ -2,6 +2,7 @@
 __author__ = 'Administrator'
 from flask import Blueprint,render_template,request ,jsonify
 from common.models.user import User
+from common.libs.user.UserService import UserService
 route_user = Blueprint('user_page',__name__)
 
 @route_user.route('/login',methods=['GET','POST'])
@@ -28,9 +29,13 @@ def login():
         resp['code'] = -1
         resp['msg'] = '请输入正确的用户名'
         return jsonify(resp)
+    # 判断密码
+    if user_info.login_pwd != UserService.genPwd(login_pwd,user_info.login_salt):
+        resp['code'] = -1
+        resp['msg'] = '请输入正确的用户名密码'
+        return jsonify(resp)
 
-
-    return '%s - %s '% (login_name,login_pwd)
+    return jsonify(resp)
 
 
 @route_user.route('/edit')
