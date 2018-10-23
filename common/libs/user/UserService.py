@@ -7,7 +7,7 @@ class UserService():
     对用户输入的密码加上随机字符串进行 md5 和 base64 加密
     """
     @staticmethod
-    def genAuthCode(user_info):
+    def geneAuthCode(user_info):
         m = hashlib.md5()
         str = "%s-%s-%s-%s" % (user_info.uid,user_info.login_name,user_info.login_pwd,user_info.login_salt)
         m.update(str.encode('utf-8'))

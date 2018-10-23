@@ -2,7 +2,7 @@
 from flask import Blueprint,request,jsonify,make_response,g,redirect
 from common.models.user import User
 from common.libs.user.UserService import ( UserService )
-from common.libs.user.Helper import  (ops_render)
+from common.libs.Helper import  (ops_render)
 from common.libs.UrlManager import ( UrlManager )
 from application import app,db
 import json
@@ -12,8 +12,8 @@ route_user = Blueprint( 'user_page',__name__ )
 @route_user.route( "/login",methods = [ "GET","POST" ] )
 def login():
     if request.method == "GET":
-        if g.current_user:
-            return  redirect( UrlManager.buildUrl("/") )
+        # if g.current_user:
+        #     return  redirect( UrlManager.buildUrl("/") )
         return ops_render( "user/login.html" )
 
     resp = {'code': 200, 'msg': '登录成功~~', 'data': {}}
@@ -37,7 +37,7 @@ def login():
         resp['msg'] = "请输入正确的登录用户名和密码-1~~"
         return jsonify(resp)
 
-    if user_info.login_pwd != UserService.genePwd( login_pwd,user_info.login_salt ):
+    if user_info.login_pwd != UserService.genPwd( login_pwd,user_info.login_salt ):
         resp['code'] = -1
         resp['msg'] = "请输入正确的登录用户名和密码-2~~"
         return jsonify(resp)
@@ -114,7 +114,7 @@ def resetPwd():
         resp['msg'] = "该用户是演示账号，不准修改密码和登录用户名~~"
         return jsonify(resp)
 
-    user_info.login_pwd = UserService.genePwd( new_password,user_info.login_salt )
+    user_info.login_pwd = UserService.genPwd( new_password,user_info.login_salt )
 
     db.session.add( user_info )
     db.session.commit()

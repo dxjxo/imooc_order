@@ -12,8 +12,16 @@ def before_request():
     igonre_urls = app.config["IGNORE_URLS"] #IGNORE_URLS ,IGNORE_CHECK_LOGIN_URLS 配置在 base_setting.py文件中
     igonre_check_login_urls = app.config["IGNORE_CHECK_LOGIN_URLS"]
 
+
     # 对以/static 开始 的静态文件 请求链接 都 进行过滤 不 进行登陆下面的登陆检查
     pattern = re.compile('%s'% "|".join(igonre_check_login_urls))
+    path = request.path
+    if pattern.match(path):
+        return
+
+
+    # 对以登陆页面 进行过滤 不 进行下面的登陆检查
+    pattern = re.compile('%s' % "|".join(igonre_urls))
     path = request.path
     if pattern.match(path):
         return
@@ -23,6 +31,8 @@ def before_request():
     path = request.path
     if pattern.match(path):
         return
+
+
     g.current_user = None
     user_info = check_login()
     if user_info:
@@ -55,6 +65,6 @@ def check_login():
 
     if user_info is None:
         return False
-    if auth_info[0] != UserService.genAuthCode(user_info):
+    if auth_info[0] != UserService.geneAuthCode(user_info):
         return False
     return  user_info
